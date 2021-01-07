@@ -1,0 +1,14 @@
+runtime: python38
+service: caja-escolar-front-dev
+basic_scaling:
+  max_instances: 2
+  idle_timeout: 10m
+handlers:
+- url: /(.*\.(gif|png|jpg|js|css|woff2|woff|ttf|svg|eot|OTF))$
+  static_files: caja-escolar/\1
+  upload: caja-escolar/.*\.(gif|png|jpg|js|css|woff2|woff|ttf|svg|eot|OTF)$
+- url: /(.*)
+  static_files: caja-escolar/index.html
+  upload: caja-escolar/index.html
+  http_headers:
+    X-Frame-Options: SAMEORIGIN

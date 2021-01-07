@@ -1,0 +1,44 @@
+stages:
+    - build
+    - deploy
+####################################
+# Develop
+####################################
+develop_build:
+    image: node:latest
+    stage: build
+    environment:
+        name: develop
+
+    script:
+        - echo 'Building..'
+        - npm install -g @angular/cli
+        - npm install
+        - ng build --aot
+        - echo 'Building Success!'
+
+    artifacts:
+        paths:
+            - dist/
+    
+    only:
+        - master
+
+develop_deploy:
+    image: google/cloud-sdk:alpine
+    stage: deploy
+
+    environment:
+        name: develop
+
+    script:
+        - echo 'Deploying....'
+        - chmod +x ./deploy.sh
+        - ./deploy.sh
+        - echo 'Deploying Success!'
+
+    when: manual
+
+    only:
+        - master
+

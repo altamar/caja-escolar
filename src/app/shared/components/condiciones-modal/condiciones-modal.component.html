@@ -1,0 +1,37 @@
+<div  class="modal fade" [ngClass]="{'show': visibleAnimate}"  [ngStyle]="{'display': visibleAnimate ? 'block' : 'none', 'opacity': visibleAnimate ? 1 : 0}"> 
+
+    <div class="modal-dialog" >
+        <div class="modal-content">
+            <div class="content-modal-info modal-comisiones">
+                
+                <div class="modal-comisiones-info ">
+                <p class="title mb-0">Condiciones de uso del beneficio</p>
+                <p class="fs-4 c-color-blue-2 pl-4 f-geomanist-r">Vigencia hasta el 31/12/2021</p>
+                <p class="fs-4 c-color-blue-2 f-geomanist-book">Condiciones</p>
+                <ul class="lista-cuadrados">
+                    <li class="fs-3"> {{data?.condiciones}}</li>
+                    
+                </ul>
+                <p class="fs-4 c-color-blue-2 f-geomanist-book">¿Cómo accedo al beneficio?</p>
+                <ul class="lista-cuadrados">
+                    <li class="fs-3">{{data?.comoacceder}}</li>
+                </ul>
+                <p class="fs-4 c-color-blue-2 f-geomanist-book">Más información del comercio</p>
+                <ul class="lista-cuadrados">
+                    <li class="fs-3"> {{data?.mecanica}}</li>
+                </ul>
+
+                <div class="mb-0 text-right">
+                    <button class="ca-btn-regular btn-blue btn-cancelar-modal"  (click)="close()">Aceptar</button>
+                </div>
+                </div>
+
+                
+                
+            </div>  
+            
+        </div>
+   </div>  
+</div>
+
+<div   [ngClass]="{' modal-backdrop fade show': visibleAnimate}"></div>

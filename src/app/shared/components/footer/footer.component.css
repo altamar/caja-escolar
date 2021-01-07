@@ -1,0 +1,20 @@
+
+footer{
+    background-color: #0e698f;
+    height: 104px;
+    /*position: absolute;*/
+    width: 100%;
+    bottom: 0;
+    width: 100%;
+
+
+  }
+
+  .social-network-buttons > a{
+    margin: 0 10px;
+  }
+
+  .slogan {
+    padding-top: 5px;
+    padding-right: 30px;
+  }

@@ -1,0 +1,70 @@
+
+/* acordeon */
+
+.acordeon {
+  width: 90%;
+  margin:0 auto;
+  padding:0
+  }
+  .acordeon ul {
+  margin:0;
+  padding:0;
+    width: 100%;
+  }
+  .acordeon li{
+  width: 92%;
+  list-style:none;
+  float:left;
+  margin:0;
+  padding:5px;
+  
+  }
+  .acordeon li h3 {
+  // background: #0076a9 url(../../../../assets/img/arrow_down.png) right center no-repeat;
+  font-family: 'geomanist_regularregular', 'Open Sans', sans-serif;
+  font-size: 18px;
+  font-weight:bold;
+  color:#ffffff;
+  padding:5px 30px 5px 10px;
+  cursor: pointer;
+  width: 100%;
+  margin-bottom: 0;
+  }
+  .acordeon li h3.open {
+  // background:#0076a9 url(../../../../assets/img/arrow_up.png) right center no-repeat;
+  border-bottom:none;
+    width: 100%;
+  }
+  .acordeon li .boxTxt {
+  display: none;
+  float:left;
+  padding:0 0 0 0;
+  margin:0;
+  width: 100%;
+  }
+  .acordeon li .boxTxt p{
+  font-family: 'geomanist_regularregular', 'Open Sans', sans-serif;
+  color:#333;
+  font-size:12px;
+  padding: 0 2px 0 30px;
+  line-height: 14px;
+  text-align: justify;
+  text-align-last: left
+  }
+  #cuerpo #cont .acordeon li .boxTxt .frase{
+  font-style:italic
+  }
+  #cuerpo #cont .acordeon li .boxTxt ul{
+  margin:0;
+  
+  }
+  #cuerpo #cont .acordeon li .boxTxt li{
+  font-family: 'Arial Narrow', sans-serif;
+  color:#999999;
+  font-size:12px;
+  text-align:left;
+  border:none;
+  list-style:disc;
+  margin:4px 0 0 12px
+  }
+  

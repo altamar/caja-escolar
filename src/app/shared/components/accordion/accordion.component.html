@@ -1,0 +1,9 @@
+
+ <ul  class="acordeon">
+   <li>
+     <h3   [ngClass]="{'open' : active}"  (click)="onClick($event)">{{ title }}</h3>
+     <div   [ngClass]="{'boxTxt' : !active}"  >
+        <ng-content></ng-content>
+     </div>
+   </li>
+</ul>
