@@ -1,0 +1,106 @@
+<div class="fade tab-pane active show">
+    <p>Selecciona uno de nuestros comercios escolares en convenio y obtén cupones que te permitan acceder a descuentos en tus compras.</p>
+    <div class="p-3 ccla">
+        <!-- div a repetir comercio -->
+        <div id="accordion">
+            <div *ngFor="let conv of convenio.result" class="box-comercio" id="comercioUno">
+                <div class="box-comercio-title" data-toggle="collapse" data-target="#collapse1" aria-expanded="true" aria-controls="collapse">
+                    <span class="logo-comercio">
+                    <img src="assets/img/icono-lapiz-lopez.png" alt="Lápiz López">
+                </span>
+                    <p class="titulo-comercio">{{conv.marca}}</p>
+                    <span class="flecha">< </span>
+                </div>
+                <div id="collapse1" class="collapse box-comercio-content" aria-labelledby="comercioUno" data-parent="#accordion">
+                    <p class="fs-4">{{conv.descripcion}}</p>
+                    <p class="fs-4 f-geomanist-book c-color-blue">Cupones de descuento</p>
+                    <div class="row">
+                        <div *ngFor="let bene of conv.beneficios" class="col-lg-4">
+                            <ng-container *ngIf="bene.beneficioespecial == 2">
+                                <div class="box-cupones-cc">
+                                    <div class="top">
+                                        <div class="descuento-cupon">
+                                            <div class="imagen-comercio">
+                                                <img src="assets/img/icono-lapiz-lopez.png" alt="Lápiz López">
+                                            </div>
+                                            <div>
+                                                <p class="dcto c-color-blue">30%</p>
+                                                <p class="detalle-dcto fs-4 c-color-blue">de descuento en mochilas</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="mid">
+                                        <p class="descripcion-descuento">{{bene.enquebr}}</p>
+                                        <div class="datos-descuentos mb-3">
+                                            <div class="datos">
+                                                <div class="left">
+                                                    <p class="f-geomanist-r c-color-gris">Sitio web:</p>
+                                                </div>
+                                                <div class="right">
+                                                    <p class="f-geomanist-book c-color-blue"><a href="http://{{conv.web}}" class="c-color-blue">{{conv.web}}</a></p>
+                                                </div>
+                                            </div>
+                                            <div class="datos">
+                                                <div class="left">
+                                                    <p class="f-geomanist-r c-color-gris">Condiciones de uso y más información:</p>
+                                                </div>
+                                                <div class="right">
+                                                    <p>
+                                                        <a href="#;" class="f-geomanist-book c-color-blue btn-click-open-modal-paso1" data-modal-open="modal-comisiones">Ver aquí</a>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <div class="datos">
+                                                <div class="left">
+                                                    <p class="f-geomanist-r c-color-gris">Estado:</p>
+                                                </div>
+                                                <div class="right">
+                                                    <p class="f-geomanist-book c-color-blue">Disponible</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="datos hide-estado-dcto">
+                                            <div class="left">
+                                                <p class="f-geomanist-book c-color-gris">Estado:</p>
+                                            </div>
+                                            <div class="right">
+                                                <p class="f-geomanist-r c-color-gris">Disponible</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Seleccionar comercio -->
+                                    <div class="box-select-comercio">
+                                        <div class="ca-form selector-comercio">
+                                            <div class="comercio-seleccionado">
+                                                <div class="lapiz-lopez">
+                                                    <div class="ca-flex ca-flex-align-center mb-3">
+                                                        <div class="mr-2">
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" class="check-cupon-dcto">
+                                                                <span class="check"></span>
+                                                            </label>
+                                                        </div>
+                                                        <div>
+                                                            <p class="mb-0 text-checkbox fs-4">Acepto las <span class="f-geomanist-book c-color-blue">condiciones de uso</span> del cupón de copago en el comercio seleccionado</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="botones text-center box-seleccionar-cupon">
+                                        <button class="btn-blue ca-btn-regular ver-descuento">Ver descuento</button>
+                                    </div>
+                                    <div class="botones text-center box-generar-cupon">
+                                        <a class="btn-blue ca-btn-regular tooltip-hover-disabled" href="caja-escolar-cupon-descuento-escolar.html" data-tooltip="Debes aceptar las condiciones para generar el cupón.">Generar cupón</a>
+                                    </div>
+                                </div>
+                            </ng-container>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- fin acordeon-->
+    </div>
+</div>

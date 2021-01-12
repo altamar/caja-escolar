@@ -1,0 +1,81 @@
+.copago-info p {
+    font-family: geomanist_regularregular, "Open Sans", sans-serif;
+    font-size: 16px;
+}
+
+.term-serv {
+    font-size: 18px !important;
+    font-weight: bold;
+    line-height: 1.5;
+}
+
+.coupon-container {
+    padding: 0px, 15px;
+}
+
+.coupon-box {
+    background-color: #F1F2F2;
+    border-radius: 10px;
+    padding: 10px 10px 20px;
+    margin-bottom: 32px;
+}
+
+.coupon-detail-box {
+    background-color: #F1F2F2;
+    border-radius: 20px;
+    padding: 10px 30px 20px 30px;
+    margin-bottom: 32px;
+}
+
+.mid {
+    display: block;
+    text-align: left;
+}
+
+.data {
+    text-align: left;
+    display: flex;
+}
+
+.left {
+    width: 152px;
+    display: block;
+    text-align: left;
+}
+
+.right {
+    width: 152px;
+    display: block;
+    text-align: left;
+}
+
+ul {
+    padding: 0;
+}
+
+ul li {
+    list-style: none;
+}
+
+.conditions-list {
+    display: block;
+    list-style-type: disc;
+    text-align: left;
+}
+
+.conditions-list li {
+    position: relative;
+    padding-left: 20px;
+}
+
+.conditions-list li::before {
+    content: "";
+    position: absolute;
+    top: 5px;
+    left: 0;
+    width: 14px;
+    height: 14px;
+    background-color: #f9be00;
+    display: block;
+    border-radius: 5px;
+}

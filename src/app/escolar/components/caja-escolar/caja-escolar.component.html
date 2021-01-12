@@ -1,2 +1,41 @@
-<p>it's works</p>
+<app-header></app-header>
+<div class="container-fluid">
+    <div class="ca-container mt-4">
+        <h2 class="f-geomanist-r ca-title mb-4">Caja Escolar</h2>
+        <div class="ca-bloque-bajada clearfix mb-4">
+            <div class="ca-bloque-bajada-icon">
+                <img src="assets/img/primera-caja.png" alt="No la encuentra">
+            </div>
+            <div class="ca-bloque-bajada-text">
+                <p id="texto-bajada" class="f-geomanist-r">Caja Escolar es un beneficio que te entrega cupón de descuento adicional según la etapa escolar de tus cargas beneficiadas con el fin de alivianar la carga en temporada de compras escolares. Además te ofrecemos diversos descuentos en nuestros
+                    comercios adheridos.</p>
+            </div>
+        </div>
+        <div class="ca-tabs" id="myTab" role="tablist">
+            <ul class="nav nav-tabs" id="myTab" role="tablelist">
+                <li role="presentation" class="nav-item">
+                    <a class="nav-link active" id="copago-cupons-tab" data-toggle="tab" role="tab" aria-controls="copago-tab" aria-selected="true" href="#copago-tab">Cupones de <br> Descuento adicional</a>
+                </li>
+                <li rol="presentation" class="nav-item">
+                    <a class="nav-link" id="discount-cupons-tab" data-toggle="tab" role="tab" aria-controls="discount-tab" aria-selected="false" href="#discount-tab">Cupones de <br> Descuento</a>
+                </li>
+            </ul>
 
+            <!--Tabs-->
+            <div class="tab-content" id="tabContent">
+                <!--Copago Tab-->
+                <div class="tab-pane fade show active" id="copago-tab" role="tabpanel" aria-labelledby="copago-tab">
+                    <app-copago-coupon [beneficiario]="getBeneficiarios" [convenio]="getConvenio"></app-copago-coupon>
+
+                </div>
+
+                <!--Discount Tab-->
+                <div class="tab-pane fade" id="discount-tab" role="tabpanel" aria-labelledby="copago-tab">
+                    <app-discount-coupon [convenio]="getConvenio"></app-discount-coupon>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<app-footer></app-footer>
