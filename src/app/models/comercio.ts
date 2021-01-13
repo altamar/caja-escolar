@@ -1,0 +1,38 @@
+export interface Comercio {
+  idconvenio: string,
+  marca: string,
+  rut: string,
+  bajada: string,
+  descripcion: string,
+  perfil: string,
+  inicio: string,
+  termino: string,
+  destacado: string,
+  keyword: string,
+  posicion: string,
+  web: string,
+  facebook: string,
+  instagram: string,
+  twitter: string,
+  idcampana: string,
+  beneficios: [
+    {
+      idbeneficio: string,
+      descuento_principal: string,
+      enquebr: string,
+      enqueex: string,
+      cuando: string,
+      condiciones: string,
+      modalidad: string,
+      comoacceder: string,
+      mecanica: string,
+      emitecodigo: string,
+      tipocodigo: string,
+      beneficioespecial: string,
+      cuponbespecial: string,
+      tipo_producto: string,
+      tipobeneficio: string,
+      idbespecial: string,
+    }
+  ]
+}

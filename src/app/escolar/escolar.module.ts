@@ -7,6 +7,8 @@ import { RouterModule } from '@angular/router';
 import { EscolarRoutes } from './escolar.routes';
 import { CajaEscolarComponent } from './components/caja-escolar/caja-escolar.component';
 import {NgxPrintModule} from 'ngx-print';
+import { CopagoCouponComponent } from './components/copago-coupon/copago-coupon.component';
+import { DiscountCouponComponent } from './components/discount-coupon/discount-coupon.component';
 
 
 
@@ -26,7 +28,9 @@ import {NgxPrintModule} from 'ngx-print';
     ],
     exports: [],
     declarations: [
-        CajaEscolarComponent],
+        CajaEscolarComponent,
+        CopagoCouponComponent,
+        DiscountCouponComponent],
     providers: [],
 })
 export class EscolarModule { }
