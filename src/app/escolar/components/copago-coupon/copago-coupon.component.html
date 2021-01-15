@@ -10,83 +10,8 @@
     <div class="container">
         <div class="row">
             <!--Mostrar datos y opciones del cupon-->
-            <div id="coupon-detail" class="col-lg-6 col-lg-12 d-none">
-                <div class="box-cupones-cc expand">
-                    <div class="top">
-                        <div class="icono-cupon mb-2">
-                            <img width="90px" src="assets/img/cupon-caja-escolar.svg" alt="">
-                            <span class="title-cupon fs-5 f-geomanist-book c-color-blue-2">Cupon de Copago</span>
-                        </div>
-                    </div>
-                    <div class="mid">
-                        <div class="datos">
-                            <div class="left">
-                                <p class="f-geomanist-r c-color-gris">Nombre de la carga:</p>
-                            </div>
-                            <div class="right">
-                                <p class="f-geomanist-book c-color-gris">{{newCarga?.nombreCarga}}</p>
-                            </div>
-                        </div>
-                        <div class="datos">
-                            <div class="left">
-                                <p class="f-geomanist-r c-color-gris">Estado: </p>
-                            </div>
-                            <div class="right">
-                                <p class="f-geomanist-book c-color-blue">{{newCarga?.estadoCupon}}</p>
-                            </div>
-                        </div>
-                        <div class="datos monto-cupon-bot">
-                            <div class="left">
-                                <p class="f-geomanist-r c-color-gris">Monto del cupon:</p>
-                            </div>
-                            <div class="right">
-                                <p class="f-geomanist-book c-color-blue">{{newCarga?.montoCupon}}</p>
-                            </div>
-                        </div>
-                    </div>
-                    <form id="formCopago">
-                        <div class="box-select-comercio">
-                            <p class="fs-4 f-geomanist-r c-color-gris">Seleciona el comercio donde quieras utilizar tu cupon</p>
-                            <div class="ca-form selector-comercio">
-                                <select [(ngModel)]='comercio' (ngModelChange)="ngModelchange($event)" class="mb1" name="comercio" id="comercio" ng-reflect-name="comercio" ng-reflect-required class="mb-1 ng-untouched ng-pristine ng-valid">
-                                    <!--<option [selected] value="Selecciona" ng-reflect-value="Selecciona">Selecciona</option>-->
-                                    <option *ngFor="let conv of convenio.result" [ngValue]="conv"> {{conv.marca}}</option>>
-                                </select>
-                                <p class="fs-1 c-color-gris">Recuerda que una vez que hayas generado tu cupón con el comercio seleccionado, no podrás cambiarlo.</p>
-                                <div class="comercio-selecionado">
-                                    <div id="div-condiciones" class="d-none">
-                                        <p class="fs-4 f-geomanist-r c-color-gris mb-4">
-                                            Condiciones de uso y más informacion
-                                            <a data-modal-open="modal-comisiones" data-toggle="modal" data-target="#modal-comisiones" class="f-geomanist-book c-color-blue btn-click-open-modal-paso1">Ver aquí</a>
-                                        </p>
-                                        <div class="ca-flex ca-flex-align-center mb-3">
-                                            <div class="mr-2">
-                                                <label class="checkbox">
-                                                    <input type="checkbox" id="condiciones" name="condiciones" [(ngModel)]="checked" (click)="checkInput()" class="input-aceptar-comercio ng-untouched ng-pristine ng-invalid" ng-reflect-name="condiciones">
-                                                    <span class="check">
-
-                                                    </span>
-                                                </label>
-                                            </div>
-                                            <div>
-                                                <p class="mb-0 text-checkbox fs-4">
-                                                    Acepto las
-                                                    <span class="f-geomanist-book c-color-blue">condiciones de uso</span> del cupón de descuento adicional en el comercio seleccionado
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="botones text-center box-seleccionar-cupon">
-                            <button class="btn-blue ca-btn-regular seleccionar-cupon">Selecionar Cupon</button>
-                        </div>
-                        <div class="botones text-center box-generar-cupon">
-                            <button id="btnAceptar" [disabled]="checked == false" data-tooltip="Debes seleccionar un comercio para generar tu cupón." data-modal-open="generarcupon" data-toggle="modal" data-target="#modal-generarcupon" class="btn-blue ca-btn-regular btn-click-open-modal tooltip-hover-disabled">Generar Cupon</button>
-                        </div>
-                    </form>
-                </div>
+            <div #detailCoupon class="">
+                <app-detalle-coupon *ngIf="newCarga" [beneficiario]="beneficiario" [convenio]="convenio" [carga]="newCarga"></app-detalle-coupon>
             </div>
             <!--Selecionar cupones-->
             <div *ngFor="let carga of beneficiario.respuesta.cargas" class="col-lg-6">
@@ -125,68 +50,24 @@
                         </div>
                     </div>
                     <div class="botones text-center box-seleccionar-cupon">
-                        <button [ngClass]="(carga.estadoCupon == 'Disponible')? 'btn-blue ca-btn-regular seleccionar-cupon' : 'btn-blue ca-btn-regular tooltip-hover-disabled disabled'" data-tooltip="Ya has utilizado este Cupón de descuento adicional" (click)="solicitarDatosCupon(carga)"
-                            class="btn-blue ca-btn-regular seleccionar-cupon"> Selecionar cupon </button>
+                        <ng-container>
+                            <button *ngIf="carga.estadoCupon == 'Utilizado'" [class.tooltip-hover-disabled]="true" disabled data-tooltip="Ya has utilizado este Cupón de descuento adicional" (click)="solicitarDatosCupon(carga)" class="btn-blue ca-btn-regular seleccionar-cupon"> Selecionar cupon </button>
+                        </ng-container>
+                        <ng-container>
+                            <button *ngIf="carga.estadoCupon == 'Generado'" [class.tooltip-hover-disabled]="false" data-tooltip="Ya has utilizado este Cupón de descuento adicional" class="btn-blue ca-btn-regular seleccionar-cupon"> Ver cupon </button>
+                        </ng-container>
+                        <ng-container>
+                            <button *ngIf="carga.estadoCupon == 'Disponible'" [class.tooltip-hover-disabled]="false" data-tooltip="Ya has utilizado este Cupón de descuento adicional" (click)="solicitarDatosCupon(carga)" class="btn-blue ca-btn-regular seleccionar-cupon"> Selecionar cupon </button>
+                        </ng-container>
                     </div>
                 </div>
             </div>
+
+            <app-generar-coupon class="d-none"></app-generar-coupon>
         </div>
         <!--bindings={
 
         }-->
     </div>
-    <div class="bg-modal" id="modal-comisiones" data-modal="modal-comisiones" data-backdrop="false">
-        <div class="content-modal">
-            <div class="content-modal-info modal-comisiones">
-                <div class="modal-comisiones-info">
-                    <p class="title mb-0">Condiciones de uso del beneficio</p>
-                    <p class="fs-4 c-color-blue-2 pl-4 f-geomanist-r">Vigencia hasta el {{comercio?.termino}}</p>
-                    <p class="fs-4 c-color-blue-2 f-geomanist-book">Condiciones</p>
-                    <ul class="lista-cuadrados">
-                        <li class="fs-3">it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing
-                            Lorem
-                        </li>
-                        <li class="fs-3">it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words.</li>
-                        <li class="fs-3">it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites o</li>
-                    </ul>
-                    <p class="fs-4 c-color-blue-2 f-geomanist-book">¿Cómo accedo al beneficio?</p>
-                    <ul class="lista-cuadrados">
-                        <li class="fs-3">are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage
-                            of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefin.</li>
-                    </ul>
-                    <p class="fs-4 c-color-blue-2 f-geomanist-book">Más información del comercio</p>
-                    <ul class="lista-cuadrados">
-                        <li class="fs-3"> it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites o</li>
-                    </ul>
 
-                    <div class="mb-0 text-right">
-                        <button class="ca-btn-regular btn-blue btn-cancelar-modal" data-dismiss="modal">Aceptar</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="bg-modal" id="modal-generarcupon" data-modal="generarcupon" data-backdrop="false">
-        <div class="content-modal">
-            <div class="content-modal-info">
-                <div class="info-guardar-cc">
-                    <div class="icono">
-                        <img src="assets/img/guardar-pregunta.png" alt="pregunta">
-                    </div>
-                    <div>
-                        <p class="mb-4"><strong>¿Estás seguro que deseas generar este cupón de copago?</strong></p>
-                        <p>El cupón será asociado a la carga <strong>{{newCarga?.nombreCarga}}</strong> por un
-                            <strong>monto de ${{numberPipe.localeString(newCarga?.montoCupon)}}</strong> asociado al comercio <strong>{{comercio?.marca}}</strong>.
-                        </p>
-                        <p>Recuerda que una vez generado no podrás cambiar el comercio asociado.</p>
-                        <div class="mb-0 text-right btn-modal-dobles">
-                            <button class="ca-btn-regular btn-white btn-cancelar-modal" data-dismiss="modal">Cancelar</button>
-                            <a (click)="matchMonto(newCarga?.montoCupon)" class="ca-btn-regular btn-blue">Aceptar</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 </div>

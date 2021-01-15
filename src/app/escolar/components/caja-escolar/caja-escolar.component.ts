@@ -11,6 +11,8 @@ import { ApHttpClient } from '../../../core/servicios/Ap-http-client';
 })
 export class CajaEscolarComponent implements OnInit {
 
+  id: string;
+
   getBeneficiariosOld = {
     estado: 'OK',
     respuesta: {

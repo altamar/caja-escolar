@@ -1,15 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
-import {
-  ActivatedRoute,
-  RouterStateSnapshot,
-  ActivatedRouteSnapshot,
-  Params,
-  CanActivate,
-  Router,
-  RouterState
-} from '@angular/router';
-import { ApHttpClient } from 'src/app/core/servicios/Ap-http-client';
-import { GetParametersService } from 'src/app/core/servicios/get-parameters.service';
+import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
+
 import { ImodalData } from 'src/app/models/ImodalData';
 import { NumberFormatPipe } from 'src/app/shared/number.pipe';
 import { Carga } from 'src/app/models/carga';
@@ -25,16 +15,17 @@ export class CopagoCouponComponent implements OnInit {
 
   @Input()beneficiario:any;
   @Input()convenio:any;
+  @ViewChild("detailCoupon")
+  detalleCupon: ElementRef
+
 
   newCarga: Carga;
-  comercio: Comercio;
   checked: boolean = false;
+  selecionar: string;
+
 
 
   constructor(
-    private getParametersService: GetParametersService,
-    private router: Router,
-    private activatedRoute: ActivatedRoute,
     public numberPipe: NumberFormatPipe
   ) { }
 
@@ -45,19 +36,10 @@ export class CopagoCouponComponent implements OnInit {
 
   solicitarDatosCupon(carga){
     this.newCarga = carga;
-
-    var couponDetail = document.getElementById('coupon-detail');
-    couponDetail.classList.remove('d-none');
-    couponDetail.scrollIntoView({block: "center"});
-
-    //console.log(this.newCarga);
+    this.detalleCupon.nativeElement.scrollIntoView({block: 'center' ,​​behavior: 'smooth'});
   }
 
 
-  ngModelchange(comercioSelect: Comercio){
-    this.comercio = comercioSelect;
-    document.getElementById('div-condiciones').className="";
-  }
 
 
   checkInput(){
@@ -72,25 +54,7 @@ export class CopagoCouponComponent implements OnInit {
     }
   }
 
-  matchMonto(montoCarga){
 
-    var montoCarga = montoCarga;
-    var beneficioValido;
-
-    this.comercio.beneficios.forEach(elem => {
-      if(elem.beneficioespecial == "1" && elem.descuento_principal == montoCarga){
-        if(elem){
-          beneficioValido = elem;
-        }
-      }
-    });
-
-    if(beneficioValido){
-      console.log('Existes descuento');
-    }else{
-      console.log('No existe descuento')
-    }
-  }
 
 
 

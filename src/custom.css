@@ -5210,6 +5210,13 @@ a.linkCuentaBancaria:hover {
     min-width: 190px;
 }
 
+.ca-btn-descargar-cupon .icon {
+    background-image: url(assets/img/icon-subirarchivos.png);
+    background-repeat: no-repeat;
+    width: 36px;
+    height: 31px;
+}
+
 .ca-btn-descargar-cupon:hover {
     border-color: #f9be00;
     color: #f9be00;

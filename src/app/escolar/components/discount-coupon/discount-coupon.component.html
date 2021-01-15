@@ -3,34 +3,36 @@
     <div class="p-3 ccla">
         <!-- div a repetir comercio -->
         <div id="accordion">
-            <div *ngFor="let conv of convenio.result" class="box-comercio" id="comercioUno">
-                <div class="box-comercio-title" data-toggle="collapse" data-target="#collapse1" aria-expanded="true" aria-controls="collapse">
+            <div *ngFor="let conv of convenio.result" class="box-comercio" id="{{conv.idconvenio}}">
+                <div class="box-comercio-title" data-toggle="collapse" [attr.data-target]="'#collapse'+conv.idconvenio" aria-expanded="true" aria-controls="collapse">
                     <span class="logo-comercio">
-                    <img src="assets/img/icono-lapiz-lopez.png" alt="Lápiz López">
-                </span>
+                        <img src="{{conv.imagenes?.logo}}" alt="{{conv.marca}}">
+                    </span>
                     <p class="titulo-comercio">{{conv.marca}}</p>
-                    <span class="flecha">< </span>
+                    <span class="flecha">
+                        < </span>
                 </div>
-                <div id="collapse1" class="collapse box-comercio-content" aria-labelledby="comercioUno" data-parent="#accordion">
-                    <p class="fs-4">{{conv.descripcion}}</p>
+                <div id="collapse{{conv.idconvenio}}" class="collapse box-comercio-content" aria-labelledby="92" data-parent="#accordion">
+                    <p class="fs-4">Encuentra todo lo que necesitas para volver a clases en el mejor comercio. Obtén los mejores descuentos en lápices, borradores, cuadernos, mochilas y todo lo que necesitas para tus hijos en etapa escolar.</p>
                     <p class="fs-4 f-geomanist-book c-color-blue">Cupones de descuento</p>
                     <div class="row">
+
                         <div *ngFor="let bene of conv.beneficios" class="col-lg-4">
                             <ng-container *ngIf="bene.beneficioespecial == 2">
-                                <div class="box-cupones-cc">
+                                <div class="box-cupones-cc" [class.expand]="false">
                                     <div class="top">
                                         <div class="descuento-cupon">
                                             <div class="imagen-comercio">
                                                 <img src="assets/img/icono-lapiz-lopez.png" alt="Lápiz López">
                                             </div>
                                             <div>
-                                                <p class="dcto c-color-blue">30%</p>
-                                                <p class="detalle-dcto fs-4 c-color-blue">de descuento en mochilas</p>
+                                                <p class="dcto c-color-blue">{{bene.descuento_principal}}</p>
+                                                <p class="detalle-dcto fs-4 c-color-blue">{{bene.enquebr}}</p>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="mid">
-                                        <p class="descripcion-descuento">{{bene.enquebr}}</p>
+                                        <p class="descripcion-descuento">{{bene.enqueex}}</p>
                                         <div class="datos-descuentos mb-3">
                                             <div class="datos">
                                                 <div class="left">
@@ -99,6 +101,8 @@
                         </div>
                     </div>
                 </div>
+
+
             </div>
         </div>
         <!-- fin acordeon-->

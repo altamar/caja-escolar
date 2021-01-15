@@ -1,0 +1,24 @@
+<div class="modal fade" [ngClass]="{'show': visibleAnimate}" [ngStyle]="{'display': visibleAnimate ? 'block' : 'none', 'opacity': visibleAnimate ? 1 : 0}">
+    <div class="content-modal">
+        <div class="content-modal-info">
+            <div class="info-guardar-cc">
+                <div class="icono">
+                    <img src="assets/img/guardar-pregunta.png" alt="pregunta">
+                </div>
+                <div>
+                    <p class="mb-4"><strong>¿Estás seguro que deseas generar este cupón de copago?</strong></p>
+                    <p>El cupón será asociado a la carga <strong>{{data2?.nombreCarga}} </strong> por un
+                        <strong>monto de ${{data?.beneficios[0].descuento_principal}}</strong> asociado al comercio {{data?.marca}}<strong></strong>.
+                    </p>
+                    <p>Recuerda que una vez generado no podrás cambiar el comercio asociado.</p>
+                    <div class="mb-0 text-right btn-modal-dobles">
+                        <button class="ca-btn-regular btn-white btn-cancelar-modal" (click)="close()">Cancelar</button>
+                        <a (click)="matchMonto(data2?.montoCupon)" class="ca-btn-regular btn-blue">Aceptar</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div [ngClass]="{' modal-backdrop fade show': visibleAnimate}"></div>
