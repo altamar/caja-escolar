@@ -45,16 +45,26 @@ export class DetalleCouponComponent implements OnInit {
 
   ngModelchange(comercioSelect: Comercio){
     this.comercio = comercioSelect;
+    var beneficioValido;
     comercioSelect.beneficios.forEach(e => {
-      if(e.beneficioespecial == "1" && this.numberPipe.localeString(e.descuento_principal) == this.numberPipe.localeString(this.newCarga.montoCupon)){
+      if(e.beneficioespecial === "1" && this.numberPipe.localeString(e.descuento_principal) === this.numberPipe.localeString(this.newCarga.montoCupon)){
         if(e){
-          this.beneficio = e;
-          this.comercio.beneficios = [e];
+          beneficioValido = e;
         }
       }
     });
 
-    document.getElementById('div-condiciones').className="";
+    if(beneficioValido){
+      this.beneficio = beneficioValido;
+      this.comercio.beneficios = [beneficioValido];
+      document.getElementById('div-condiciones').className="";
+    }else{
+      this.beneficio = null;
+      this.checked = true;
+      this.checkInput();
+      document.getElementById('div-condiciones').className="d-none";
+    }
+
   }
 
   checkInput(){

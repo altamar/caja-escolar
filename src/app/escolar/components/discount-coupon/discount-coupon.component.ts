@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { ModalService } from 'src/app/core/servicios/modal.service';
 
 @Component({
   selector: 'app-discount-coupon',
@@ -8,13 +9,40 @@ import { Component, Input, OnInit } from '@angular/core';
 export class DiscountCouponComponent implements OnInit {
 
   @Input()convenio:any;
+  @Input()beneficiario:any;
 
-  title = "Random title"
+  checked2: boolean = false;
+  showDet = false;
+  idbene = '0';
+  beneficio;
 
-
-  constructor() { }
+  constructor(
+    private modalService: ModalService
+  ) { }
 
   ngOnInit(): void {
   }
 
+
+  showDetails(bene){
+    this.showDet = true;
+    this.idbene = bene.idbeneficio;
+    this.beneficio = bene;
+  }
+
+  checkInput(){
+    if(this.checked2 == false){
+      this.checked2 = true;
+      var btnAceptar = document.getElementById('btnAceptar');
+      btnAceptar.classList.remove('tooltip-hover-disabled');
+
+    }else if(this.checked2 == true){
+      this.checked2 = false;
+      document.getElementById('btnAceptar').className += ' tooltip-hover-disabled';
+    }
+  }
+
+  showModalComisiones(){
+    this.modalService.open('modalComisiones', this.beneficio)
+  }
 }

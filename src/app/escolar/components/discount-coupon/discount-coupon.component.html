@@ -1,10 +1,11 @@
 <div class="fade tab-pane active show">
     <p>Selecciona uno de nuestros comercios escolares en convenio y obtén cupones que te permitan acceder a descuentos en tus compras.</p>
     <div class="p-3 ccla">
+        <app-generar-coupon class="d-none"></app-generar-coupon>
         <!-- div a repetir comercio -->
         <div id="accordion">
-            <div *ngFor="let conv of convenio.result" class="box-comercio" id="{{conv.idconvenio}}">
-                <div class="box-comercio-title" data-toggle="collapse" [attr.data-target]="'#collapse'+conv.idconvenio" aria-expanded="true" aria-controls="collapse">
+            <div *ngFor="let conv of convenio.result, let i = index" class="box-comercio" id="{{i}}">
+                <div class="box-comercio-title" data-toggle="collapse" [attr.data-target]="'#collapse'+i" aria-expanded="true" aria-controls="collapse">
                     <span class="logo-comercio">
                         <img src="{{conv.imagenes?.logo}}" alt="{{conv.marca}}">
                     </span>
@@ -12,14 +13,13 @@
                     <span class="flecha">
                         < </span>
                 </div>
-                <div id="collapse{{conv.idconvenio}}" class="collapse box-comercio-content" aria-labelledby="92" data-parent="#accordion">
+                <div id="collapse{{i}}" class="collapse box-comercio-content" aria-labelledby="92" data-parent="#accordion">
                     <p class="fs-4">Encuentra todo lo que necesitas para volver a clases en el mejor comercio. Obtén los mejores descuentos en lápices, borradores, cuadernos, mochilas y todo lo que necesitas para tus hijos en etapa escolar.</p>
                     <p class="fs-4 f-geomanist-book c-color-blue">Cupones de descuento</p>
                     <div class="row">
-
-                        <div *ngFor="let bene of conv.beneficios" class="col-lg-4">
+                        <div *ngFor="let bene of conv.beneficios" class="col-lg-4" [ngClass]="{'col-lg-12': showDet === true && idbene === bene.idbeneficio}">
                             <ng-container *ngIf="bene.beneficioespecial == 2">
-                                <div class="box-cupones-cc" [class.expand]="false">
+                                <div class="box-cupones-cc" [ngClass]="{'expand': showDet === true && idbene === bene.idbeneficio}">
                                     <div class="top">
                                         <div class="descuento-cupon">
                                             <div class="imagen-comercio">
@@ -48,7 +48,7 @@
                                                 </div>
                                                 <div class="right">
                                                     <p>
-                                                        <a href="#;" class="f-geomanist-book c-color-blue btn-click-open-modal-paso1" data-modal-open="modal-comisiones">Ver aquí</a>
+                                                        <a (click)="showModalComisiones()" class="f-geomanist-book c-color-blue btn-click-open-modal-paso1" data-modal-open="modal-comisiones">Ver aquí</a>
                                                     </p>
                                                 </div>
                                             </div>
@@ -78,7 +78,7 @@
                                                     <div class="ca-flex ca-flex-align-center mb-3">
                                                         <div class="mr-2">
                                                             <label class="checkbox">
-                                                                <input type="checkbox" class="check-cupon-dcto">
+                                                                <input type="checkbox" [(ngModel)]="checked2" id="condiciones" name="condiciones" (click)="checkInput()" class="check-cupon-dcto">
                                                                 <span class="check"></span>
                                                             </label>
                                                         </div>
@@ -91,10 +91,10 @@
                                         </div>
                                     </div>
                                     <div class="botones text-center box-seleccionar-cupon">
-                                        <button class="btn-blue ca-btn-regular ver-descuento">Ver descuento</button>
+                                        <button class="btn-blue ca-btn-regular ver-descuento" (click)="showDetails(bene)">Ver descuento</button>
                                     </div>
                                     <div class="botones text-center box-generar-cupon">
-                                        <a class="btn-blue ca-btn-regular tooltip-hover-disabled" href="caja-escolar-cupon-descuento-escolar.html" data-tooltip="Debes aceptar las condiciones para generar el cupón.">Generar cupón</a>
+                                        <a id="btnAceptar" class="btn-blue ca-btn-regular tooltip-hover-disabled" data-tooltip="Debes aceptar las condiciones para generar el cupón.">Generar cupón</a>
                                     </div>
                                 </div>
                             </ng-container>

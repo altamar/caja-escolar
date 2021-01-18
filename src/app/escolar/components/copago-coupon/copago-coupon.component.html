@@ -8,9 +8,10 @@
     </ul>
     <h3 class="fs-5 f-geomanist-book c-color-blue-2 mb-5">Mis Cupones de Descuento Adicional</h3>
     <div class="container">
-        <div class="row">
+        <app-generar-coupon class="d-none"></app-generar-coupon>
+        <div class="row" #generateCoupon>
             <!--Mostrar datos y opciones del cupon-->
-            <div #detailCoupon class="">
+            <div #detailCoupon>
                 <app-detalle-coupon *ngIf="newCarga" [beneficiario]="beneficiario" [convenio]="convenio" [carga]="newCarga"></app-detalle-coupon>
             </div>
             <!--Selecionar cupones-->
@@ -62,8 +63,6 @@
                     </div>
                 </div>
             </div>
-
-            <app-generar-coupon class="d-none"></app-generar-coupon>
         </div>
         <!--bindings={
 
