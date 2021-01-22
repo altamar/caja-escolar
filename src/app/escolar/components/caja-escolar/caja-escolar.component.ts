@@ -3,7 +3,11 @@ import { Component, OnInit } from '@angular/core';
 
 import { GetParametersService } from '../../../core/servicios/get-parameters.service';
 import { ApHttpClient } from '../../../core/servicios/Ap-http-client';
-
+import { TokenService } from 'src/app/core/servicios/token.service';
+import { DatosUsuarioService } from 'src/app/core/servicios/datos-usuario.service';
+import { ApInMemoryProvider } from 'src/app/core/storage/ap-in-memory/ap-in-memory';
+import { InMemoryKeys } from 'src/app/core/storage/in-memory-key';
+import { GetBeneficiosService } from '../../../core/servicios/get-beneficios.service';
 
 @Component({
   selector: 'app-caja-escolar',
@@ -14,7 +18,7 @@ export class CajaEscolarComponent implements OnInit {
 
   id: string;
 
-  getBeneficiarios = {
+  getBeneficiariosOld = {
     estado: 'OK',
     respuesta: {
       codigoRespuesta: '2000',
@@ -161,7 +165,7 @@ export class CajaEscolarComponent implements OnInit {
     errores: null,
   };
 
-  getConvenio = {
+  getConvenioOld = {
     status: 1,
     result: [
       {
@@ -681,10 +685,32 @@ export class CajaEscolarComponent implements OnInit {
     ],
   };
 
+  getConvenio: any;
+  getBeneficiarios: any;
+  convenioBeneEsp1 = [];
+  convenioBeneEsp2 = [];
+
+
+
+  dataEspecial1 = [];
+
   constructor(
+    private datosUsuario: DatosUsuarioService,
+    private getBeneficiosService: GetBeneficiosService
   ) {}
 
   ngOnInit(): void {
 
+    // //Datos usuario
+    this.datosUsuario.datosUsuario$.subscribe((data) => {
+      this.getBeneficiarios = data;
+    })
+
+    // //Datos Convenio
+    this.getBeneficiosService.beneficios$.subscribe((data) => {
+      this.getConvenio = data;
+    })
+
   }
+
 }

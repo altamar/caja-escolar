@@ -14,8 +14,8 @@ export class DiscountCouponComponent implements OnInit {
   checked2: boolean = false;
   showDet = false;
   idbene = '0';
+  convenioFiltered = [];
   beneficio;
-
   constructor(
     private modalService: ModalService
   ) { }
@@ -23,6 +23,22 @@ export class DiscountCouponComponent implements OnInit {
   ngOnInit(): void {
   }
 
+
+
+  filterConvenio(){
+  //   this.convenio.map((e) => {
+  //     e.beneficios = e.beneficios.filter((x) => { return x.beneficioespecial == '2'});
+  //     if(e.beneficios.length > 0){
+  //       this.convenioFiltered.push(e)
+  //     };
+  //   })
+    console.log(this.convenio)
+    // var filteredList = this.convenio.result.beneficios
+    //   .filter((item) => item.beneficioespecial == '1')
+    //   .map((item) => item);
+
+    // console.log(filteredList)
+  }
 
   showDetails(bene){
     this.showDet = true;

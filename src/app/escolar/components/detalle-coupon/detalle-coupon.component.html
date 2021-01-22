@@ -38,7 +38,7 @@
                 <div *ngIf="newCarga" class="ca-form selector-comercio">
                     <select [(ngModel)]='selecionar' (ngModelChange)="ngModelchange($event)" class="mb1" name="comercio" id="comercio" class="mb-1 ng-untouched ng-pristine ng-valid">
                         <option [selected] [value]="selecionar" ng-reflect-value="Selecciona">Selecciona</option> -->
-                        <option *ngFor="let conv of convenio.result" [ngValue]="conv"> {{conv.marca}}</option>>
+                        <option *ngFor="let conv of convenio?.result" [ngValue]="conv"> {{conv.marca}}</option>>
                     </select>
                     <p class="fs-1 c-color-gris">Recuerda que una vez que hayas generado tu cupón con el comercio seleccionado, no podrás cambiarlo.</p>
                     <div class="comercio-selecionado">

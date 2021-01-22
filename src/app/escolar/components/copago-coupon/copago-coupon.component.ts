@@ -15,6 +15,7 @@ export class CopagoCouponComponent implements OnInit {
 
   @Input()beneficiario:any;
   @Input()convenio:any;
+  @Input()convenioBen1:any;
   @ViewChild("detailCoupon")
   detalleCupon: ElementRef
 

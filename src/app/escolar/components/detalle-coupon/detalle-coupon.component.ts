@@ -22,7 +22,6 @@ export class DetalleCouponComponent implements OnInit {
   newCarga: Carga;
   beneficio: Beneficio;
   comercio: Comercio;
-
   checked: boolean = false;
   selecionar: string;
 
@@ -35,6 +34,7 @@ export class DetalleCouponComponent implements OnInit {
     this.newCarga = this.carga;
   }
 
+
   showModalComisiones(){
     this.modalService.open('modalComisiones', this.beneficio)
   }
@@ -43,11 +43,13 @@ export class DetalleCouponComponent implements OnInit {
     this.modalService.open('modalGenerar', [this.comercio, this.newCarga])
   }
 
+
+
   ngModelchange(comercioSelect: Comercio){
     this.comercio = comercioSelect;
     var beneficioValido;
     comercioSelect.beneficios.forEach(e => {
-      if(e.beneficioespecial === "1" && this.numberPipe.localeString(e.descuento_principal) === this.numberPipe.localeString(this.newCarga.montoCupon)){
+      if(this.numberPipe.localeString(e.descuento_principal) === this.numberPipe.localeString(this.newCarga.montoCupon)){
         if(e){
           beneficioValido = e;
         }

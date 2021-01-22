@@ -25,13 +25,29 @@
             <div class="tab-content" id="tabContent">
                 <!--Copago Tab-->
                 <div class="tab-pane fade show active" id="copago-tab" role="tabpanel" aria-labelledby="copago-tab">
-                    <app-copago-coupon [beneficiario]="getBeneficiarios" [convenio]="getConvenio"></app-copago-coupon>
+                    <div class="p-3">
+                        <p class="mb-3 f-geomanist-r fs-4">Cupones por un monto de dinero que puedes utilizar en nuestros comercios escolares en convenio.</p>
+                        <p class="mb-3 f-geomanist-book fs-4">Condiciones de uso</p>
+                        <ul class="ml-3 lista-cuadrados">
+                            <li>Tienes acceso a 1 cupón por carga acreditada que cumpla los requisitos.</li>
+                            <li>El monto de tu cupón debe ser utilizado en un solo comercio y en una sola compra.</li>
+                            <li>Debes elegir el comercio donde utilizarás el cupón, una vez seleccionado no podrás modificarlo.</li>
+                        </ul>
+                        <h3 class="fs-5 f-geomanist-book c-color-blue-2 mb-5">Mis Cupones de Descuento Adicional</h3>
+                        <app-generar-coupon class="d-none"></app-generar-coupon>
+                        <app-copago-coupon class="" [beneficiario]="getBeneficiarios" [convenio]="getConvenio"></app-copago-coupon>
+                    </div>
 
                 </div>
 
                 <!--Discount Tab-->
                 <div class="tab-pane fade" id="discount-tab" role="tabpanel" aria-labelledby="copago-tab">
-                    <app-discount-coupon [convenio]="getConvenio" [beneficiario]="getBeneficiarios"></app-discount-coupon>
+                    <div class="fade tab-pane active show">
+                        <p>Selecciona uno de nuestros comercios escolares en convenio y obtén cupones que te permitan acceder a descuentos en tus compras.</p>
+                        <app-generar-coupon class="d-none"></app-generar-coupon>
+                        <app-discount-coupon class="" [convenio]="getConvenio" [beneficiario]="getBeneficiarios"></app-discount-coupon>
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -39,4 +55,5 @@
 </div>
 <app-condiciones-modal id="modalComisiones"></app-condiciones-modal>
 <app-generar-modal id="modalGenerar"></app-generar-modal>
+<app-modal id="loadmodal"></app-modal>
 <app-footer></app-footer>

@@ -7,6 +7,7 @@ import {InMemoryKeys} from '../storage/in-memory-key';
 import {ApInMemoryProvider} from '../storage/ap-in-memory/ap-in-memory';
 import {OptionsModal, TypeModal} from "../../models/modal.options";
 import {ModalService} from "./modal.service";
+import { GetBeneficiosService  } from './get-beneficios.service';
 
 @Injectable({
     providedIn: 'root'
@@ -20,6 +21,7 @@ export class DatosUsuarioService {
 
     constructor(  private httpBackend: HttpBackend, private tokenService:TokenService ,
                   private apInMemoryProvider: ApInMemoryProvider,
+                  private getBeneficios: GetBeneficiosService,
                   private _modalService:ModalService) {this.httpWithoutInterceptor = new HttpClient(httpBackend) }
 
     loadData(crud:string){
@@ -59,11 +61,24 @@ export class DatosUsuarioService {
               this._modalService.close('loadmodal');
               console.log(error)
             });
+
         },
         (error) => {
           this._modalService.close('loadmodal');
           console.log(error)
         });
+
+        this.getBeneficios.get(`/campanas/2/convenios`,
+
+            { headers: new HttpHeaders()
+              .set('Authorization', `Bearer ${token}`)
+              .set('Content-type', 'application/json')
+              .set('usuario', 'cla@cajalosandes.cl')
+              .set('clave', 'JxSvqeFWCCpjTuD')
+            }
+          )
+
+
     }
 
 
