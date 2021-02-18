@@ -9,6 +9,7 @@ import {
 import {InMemoryKeys} from '../storage/in-memory-key';
 import {ApInMemoryProvider} from '../storage/ap-in-memory/ap-in-memory';
 import { DatosUsuarioService } from './datos-usuario.service';
+import {CustomApiService } from './custom-api.service';
 
 
 
@@ -18,7 +19,8 @@ import { DatosUsuarioService } from './datos-usuario.service';
 export class GetParametersService implements CanActivate {
   constructor(private activatedRoute: ActivatedRoute,
                 private apInMemoryProvider: ApInMemoryProvider,
-                private datosUsuarioService: DatosUsuarioService
+                private datosUsuarioService: DatosUsuarioService,
+                private getToken: CustomApiService
               ) {
   }
 
@@ -26,8 +28,11 @@ export class GetParametersService implements CanActivate {
     if (state.url.indexOf('/escolar') !== -1 ){
       this.activatedRoute.queryParams.subscribe((params: Params) => {
         if (params.crut) {
-          this.apInMemoryProvider.setItemByKey(InMemoryKeys.RUT_Encriptado, params.crut.replace(/\s/g, '+') );
-           this.datosUsuarioService.loadData(params.crut.replace(/\s/g, '+'));
+          console.log('Poner los servicios')
+          this.apInMemoryProvider.setItemByKey(InMemoryKeys.RUT_Encriptado, params.crut.replace(/\s/g, '+') )
+          this.getToken.loadData(params.crut.replace(/\s/g, '+'))
+          // this.apInMemoryProvider.setItemByKey(InMemoryKeys.RUT_Encriptado, params.crut.replace(/\s/g, '+') );
+          // this.datosUsuarioService.loadData(params.crut.replace(/\s/g, '+'));
         }
       });
     }

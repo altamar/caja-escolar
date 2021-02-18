@@ -8,7 +8,7 @@ import {ApInMemoryProvider} from '../storage/ap-in-memory/ap-in-memory';
 import {OptionsModal, TypeModal} from "../../models/modal.options";
 import {ModalService} from "./modal.service";
 import { GetBeneficiosService  } from './get-beneficios.service';
-
+import { GenerarCuponService } from './generar-cupon.service';
 @Injectable({
     providedIn: 'root'
 })
@@ -22,6 +22,7 @@ export class DatosUsuarioService {
     constructor(  private httpBackend: HttpBackend, private tokenService:TokenService ,
                   private apInMemoryProvider: ApInMemoryProvider,
                   private getBeneficios: GetBeneficiosService,
+                  private generarCupon: GenerarCuponService,
                   private _modalService:ModalService) {this.httpWithoutInterceptor = new HttpClient(httpBackend) }
 
     loadData(crud:string){

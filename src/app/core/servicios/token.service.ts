@@ -15,8 +15,8 @@ export class TokenService {
         private httpBackend: HttpBackend,
         private apInMemoryProvider:ApInMemoryProvider
     ) {  this.httpWithoutInterceptor = new HttpClient(httpBackend);
-    
-    
+
+
     }
     getTokenPortabilidad():Observable<any>{
       const body = new HttpParams()
@@ -34,14 +34,14 @@ export class TokenService {
               tap(value => this.apInMemoryProvider.setItemByKey(InMemoryKeys.AccesToken ,value.access_token ) )
        )
     }
-    
+
 
 
     getToken():Observable<any>{
          return this.refreshToken();
     }
 
-    refreshToken():Observable<any>{  
+    refreshToken():Observable<any>{
         const body = new HttpParams()
         .set('grant_type', ENV.grant_type)
         .set('username', ENV.username)

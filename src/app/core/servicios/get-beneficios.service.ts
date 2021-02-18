@@ -6,17 +6,16 @@ import { ApHttpClient } from './Ap-http-client';
 })
 export class GetBeneficiosService {
 
-  private sebjectBeneficios = new Subject<any>();
-  public beneficios$ = this.sebjectBeneficios.asObservable();
+  private sebjectEspecials = new Subject<any>();
+  public beneficios$ = this.sebjectEspecials.asObservable();
 
   constructor(
     private apHttpClient: ApHttpClient,
   ) { }
 
-
   get(resource: string, headerOps: any){
     this.apHttpClient.getcustonheader<any>(resource, headerOps).subscribe((resp) => {
-      this.sebjectBeneficios.next(resp)
+      this.sebjectEspecials.next(resp)
     },
     (error) => {
       console.log(error)
@@ -24,44 +23,26 @@ export class GetBeneficiosService {
 
   }
 
+  getEspecials(){
+    this.beneficios$.subscribe((res)=>{
+      res?.result.forEach((comercio) => {
+        comercio.beneficiosCopago = this.filtroEspecial(comercio, '1');
+        comercio.beneficiosDescuento = this.filtroEspecial(comercio, '2');
+        // if (comercio.beneficios.length > 0) {
+        //   data.push(comercio);
+        // }
+      });
+    },
+    (error) => {
+      console.log(error)
+    })
+  }
 
-
-  // getEspecial1(data: any){
-  //   this.beneficios$.subscribe((res)=>{
-  //     res?.result.forEach((comercio) => {
-  //       comercio.beneficios = (comercio.beneficios || []).filter(
-  //         (e) => e.beneficioespecial == '1'
-  //       );
-  //       if (comercio.beneficios.length > 0) {
-  //         data.push(comercio);
-  //       }
-  //     });
-  //   },
-  //   (error) => {
-  //     console.log(error)
-  //   })
-
-  // }
-
-
-
-  // getEspecial2(data: any){
-  //   this.beneficios$.subscribe((res)=>{
-  //     res?.result.forEach((comercio) => {
-  //       comercio.beneficios = (comercio.beneficios || []).filter(
-  //         (e) => e.beneficioespecial == '2'
-  //       );
-  //       if (comercio.beneficios.length > 0) {
-  //         data.push(comercio);
-  //       }
-  //     });
-  //   },
-  //   (error) => {
-  //     console.log(error)
-  //   })
-
-
-  // }
+  filtroEspecial(comercio: any, tipo: string){
+    return (comercio.beneficios || []).filter(
+      (e) => e.beneficioespecial == tipo
+    );
+  }
 
 
 }

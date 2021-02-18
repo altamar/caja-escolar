@@ -1,14 +1,9 @@
 import { UrlResolver } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 
-import { GetParametersService } from '../../../core/servicios/get-parameters.service';
-import { ApHttpClient } from '../../../core/servicios/Ap-http-client';
-import { TokenService } from 'src/app/core/servicios/token.service';
 import { DatosUsuarioService } from 'src/app/core/servicios/datos-usuario.service';
-import { ApInMemoryProvider } from 'src/app/core/storage/ap-in-memory/ap-in-memory';
-import { InMemoryKeys } from 'src/app/core/storage/in-memory-key';
 import { GetBeneficiosService } from '../../../core/servicios/get-beneficios.service';
-
+import { CustomApiService } from 'src/app/core/servicios/custom-api.service';
 @Component({
   selector: 'app-caja-escolar',
   templateUrl: './caja-escolar.component.html',
@@ -685,32 +680,52 @@ export class CajaEscolarComponent implements OnInit {
     ],
   };
 
-  getConvenio: any;
+
   getBeneficiarios: any;
-  convenioBeneEsp1 = [];
-  convenioBeneEsp2 = [];
+  getConvenio: any;
 
+  showCupon: boolean;
+  showCargas: boolean = true;
 
+  dataCupon: any;
 
-  dataEspecial1 = [];
 
   constructor(
     private datosUsuario: DatosUsuarioService,
-    private getBeneficiosService: GetBeneficiosService
+    private getBeneficiosService: GetBeneficiosService,
+    private customApi: CustomApiService
   ) {}
 
   ngOnInit(): void {
 
     // //Datos usuario
-    this.datosUsuario.datosUsuario$.subscribe((data) => {
-      this.getBeneficiarios = data;
-    })
+    // this.datosUsuario.datosUsuario$.subscribe((data) => {
+    //   this.getBeneficiarios = data;
+    // })
 
     // //Datos Convenio
-    this.getBeneficiosService.beneficios$.subscribe((data) => {
+    // this.getBeneficiosService.beneficios$.subscribe((data) => {
+    //   this.getConvenio = data;
+    // })
+
+    // this.getBeneficiosService.getEspecials()
+
+    this.customApi.datosUsuarioCustom$.subscribe((data) => {
+      console.log(data)
+      this.getBeneficiarios = data;
+    })
+    this.customApi.datosConvenioCustom$.subscribe((data) => {
+      console.log(data)
       this.getConvenio = data;
     })
 
+    this.customApi.getEspecials()
+
+  }
+
+  onShow(data: boolean){
+    this.dataCupon = data;
   }
 
 }
+

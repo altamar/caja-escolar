@@ -34,8 +34,8 @@
                             <li>Debes elegir el comercio donde utilizarás el cupón, una vez seleccionado no podrás modificarlo.</li>
                         </ul>
                         <h3 class="fs-5 f-geomanist-book c-color-blue-2 mb-5">Mis Cupones de Descuento Adicional</h3>
-                        <app-generar-coupon class="d-none"></app-generar-coupon>
-                        <app-copago-coupon class="" [beneficiario]="getBeneficiarios" [convenio]="getConvenio"></app-copago-coupon>
+                        <app-generar-coupon *ngIf="showCupon" [dataCupon]="dataCupon"></app-generar-coupon>
+                        <app-copago-coupon *ngIf="showCargas" (sendData)="onShow($event); showCargas = false; showCupon = true" class="" [beneficiario]="getBeneficiarios" [convenio]="getConvenio"></app-copago-coupon>
                     </div>
 
                 </div>
@@ -45,7 +45,7 @@
                     <div class="fade tab-pane active show">
                         <p>Selecciona uno de nuestros comercios escolares en convenio y obtén cupones que te permitan acceder a descuentos en tus compras.</p>
                         <app-generar-coupon class="d-none"></app-generar-coupon>
-                        <app-discount-coupon class="" [convenio]="getConvenio" [beneficiario]="getBeneficiarios"></app-discount-coupon>
+                        <app-discount-coupon class="" [beneficiario]="getBeneficiarios" [convenio]="getConvenio"></app-discount-coupon>
                     </div>
 
                 </div>
@@ -54,6 +54,6 @@
     </div>
 </div>
 <app-condiciones-modal id="modalComisiones"></app-condiciones-modal>
-<app-generar-modal id="modalGenerar"></app-generar-modal>
+<app-generar-modal (sendData)="onShow($event); showCargas = false; showCupon = true" id="modalGenerar"></app-generar-modal>
 <app-modal id="loadmodal"></app-modal>
 <app-footer></app-footer>

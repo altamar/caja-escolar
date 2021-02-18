@@ -24,22 +24,6 @@ export class DiscountCouponComponent implements OnInit {
   }
 
 
-
-  filterConvenio(){
-  //   this.convenio.map((e) => {
-  //     e.beneficios = e.beneficios.filter((x) => { return x.beneficioespecial == '2'});
-  //     if(e.beneficios.length > 0){
-  //       this.convenioFiltered.push(e)
-  //     };
-  //   })
-    console.log(this.convenio)
-    // var filteredList = this.convenio.result.beneficios
-    //   .filter((item) => item.beneficioespecial == '1')
-    //   .map((item) => item);
-
-    // console.log(filteredList)
-  }
-
   showDetails(bene){
     this.showDet = true;
     this.idbene = bene.idbeneficio;
@@ -49,12 +33,12 @@ export class DiscountCouponComponent implements OnInit {
   checkInput(){
     if(this.checked2 == false){
       this.checked2 = true;
-      var btnAceptar = document.getElementById('btnAceptar');
+      var btnAceptar = document.getElementById('btnAceptar2');
       btnAceptar.classList.remove('tooltip-hover-disabled');
 
     }else if(this.checked2 == true){
       this.checked2 = false;
-      document.getElementById('btnAceptar').className += ' tooltip-hover-disabled';
+      document.getElementById('btnAceptar2').className += ' tooltip-hover-disabled';
     }
   }
 
