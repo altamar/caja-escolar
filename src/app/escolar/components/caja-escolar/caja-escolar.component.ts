@@ -680,7 +680,6 @@ export class CajaEscolarComponent implements OnInit {
     ],
   };
 
-
   getBeneficiarios: any;
   getConvenio: any;
 
@@ -711,11 +710,9 @@ export class CajaEscolarComponent implements OnInit {
     // this.getBeneficiosService.getEspecials()
 
     this.customApi.datosUsuarioCustom$.subscribe((data) => {
-      console.log(data)
       this.getBeneficiarios = data;
     })
     this.customApi.datosConvenioCustom$.subscribe((data) => {
-      console.log(data)
       this.getConvenio = data;
     })
 
@@ -723,7 +720,7 @@ export class CajaEscolarComponent implements OnInit {
 
   }
 
-  onShow(data: boolean){
+  onShow(data: any){
     this.dataCupon = data;
   }
 

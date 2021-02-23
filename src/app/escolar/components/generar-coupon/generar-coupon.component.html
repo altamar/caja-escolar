@@ -8,12 +8,12 @@
                 </div>
                 <div class="text-center monto-cupon-top">
                     <p class="mb-0 f-geomanist-r c-color-gris">Monto del cupon</p>
-                    <p class="fs-7 f-geomanist-book c-color-blue">$10.000</p>
+                    <p class="fs-7 f-geomanist-book c-color-blue">{{dataCupon?.cargaData.montoCupon}}</p>
                 </div>
             </div>
             <div class="box-codigo-cupon text-center mb-4">
                 <p class="c-color-white f-geomanist-r mb-2">Codigo del cupon de copago</p>
-                <p class="c-color-white f-geomanist-book fs-5 mb-0">{{dataCupon?.codigoCupon}}</p>
+                <p class="c-color-white f-geomanist-book fs-5 mb-0">{{dataCupon?.cargaData.codigoCupon}}</p>
             </div>
             <div class="mid mb-3 pad-inner-cupon">
                 <div class="datos">
@@ -21,7 +21,7 @@
                         <p class="f-geomanist-r c-color-gris">Comercio: </p>
                     </div>
                     <div class="right">
-                        <p class="f-geomanist-book c-color-gris">{{dataCupon?.nomComercio}}</p>
+                        <p class="f-geomanist-book c-color-gris">{{dataCupon?.comercioData.marca}}</p>
                     </div>
                 </div>
                 <div class="datos">
@@ -29,7 +29,7 @@
                         <p class="f-geomanist-r c-color-gris">Monto de copago</p>
                     </div>
                     <div class="right">
-                        <p class="f-geomanist-book c-color-blue">{{dataCupon?.montoCupon}}</p>
+                        <p class="f-geomanist-book c-color-blue">{{dataCupon?.cargaData.montoCupon}}</p>
                     </div>
                 </div>
                 <div class="datos monto-cupon-bot">
@@ -37,7 +37,7 @@
                         <p class="f-geomanist-r c-color-gris">Nombre de la carga:</p>
                     </div>
                     <div class="right">
-                        <p class="f-geomanist-book c-color-blue">{{dataCupon?.nombreCarga}}</p>
+                        <p class="f-geomanist-book c-color-blue">{{dataCupon?.cargaData.nombreCarga}}</p>
                     </div>
                 </div>
                 <div class="datos monto-cupon-bot">
@@ -45,7 +45,7 @@
                         <p class="f-geomanist-r c-color-gris">Sitio web:</p>
                     </div>
                     <div class="right">
-                        <a class="f-geomanist-book c-color-blue">INSERTE SITIO WEB ACA</a>
+                        <a class="f-geomanist-book c-color-blue">{{dataCupon?.comercioData.web}}</a>
                     </div>
                 </div>
             </div>
@@ -53,15 +53,15 @@
                 <div class="row">
                     <div class="col-lg-4 text-center">
                         <p class="mb-2 fs-4  f-geomanist-r c-color-gris">Estado del cupon</p>
-                        <p class="fs-4 f-geomanist-book c-color-blue">{{dataCupon?.estadoCupon}}</p>
+                        <p class="fs-4 f-geomanist-book c-color-blue">{{dataCupon?.cuponData.estado}}</p>
                     </div>
                     <div class="col-lg-4 text-center">
                         <p class="mb-2 fs-4  f-geomanist-r c-color-gris">Cupon generado el</p>
-                        <p class="fs-4 f-geomanist-book c-color-blue">{{dataCupon?.fecEstado | date:"dd/mm/yyyy" }}</p>
+                        <p class="fs-4 f-geomanist-book c-color-blue">{{dataCupon?.cargaData.fecEstado | date:'dd-MM-yyyy' }}</p>
                     </div>
                     <div class="col-lg-4 text-center">
                         <p class="mb-2 fs-4  f-geomanist-r c-color-gris">Fecha maxima de canje</p>
-                        <p class="fs-4 f-geomanist-book c-color-blue">31/12/2021</p>
+                        <p class="fs-4 f-geomanist-book c-color-blue">{{dataCupon?.cuponData.vigenciaCupon | date:'dd-MM-yyyy'}}</p>
                     </div>
                 </div>
             </div>

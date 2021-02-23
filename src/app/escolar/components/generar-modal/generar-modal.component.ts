@@ -76,7 +76,7 @@ export class GenerarModalComponent implements OnInit {
 
     matchMonto(montoCarga){
 
-      this.sendData.emit(this.data)
+
       var montoCarga = montoCarga;
       var beneficioValido;
       var elemt;
@@ -91,7 +91,7 @@ export class GenerarModalComponent implements OnInit {
       });
 
       if(beneficioValido){
-        console.log('Existe descuento');
+        //console.log('Existe descuento');
         const comercio = this.data
         const beneficio = elemt
         const carga = this.data2
@@ -106,9 +106,8 @@ export class GenerarModalComponent implements OnInit {
         //console.log(this.data2)
 
         this.cuponService.generar(datacupon)
-
-        //this.sendData.emit(datacupon)
-        this.modalService.open('loadmodal' , this.OptionsMLoad);
+        //this.sendData.emit(this.data)
+        this.sendData.emit(datacupon)
         this.close()
       }else{
         console.log('No existe descuento')
@@ -116,7 +115,7 @@ export class GenerarModalComponent implements OnInit {
     }
 
   generarCupon(data: any){
-
+    this.cuponService.generar(data)
   }
 
 }

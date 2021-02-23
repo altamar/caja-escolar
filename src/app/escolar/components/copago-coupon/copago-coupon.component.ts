@@ -6,6 +6,8 @@ import { Carga } from 'src/app/models/carga';
 import { Comercio } from 'src/app/models/comercio';
 import { Beneficio } from 'src/app/models/beneficio';
 import { ModalService } from 'src/app/core/servicios/modal.service';
+import { GenerarCuponService } from 'src/app/core/servicios/generar-cupon.service';
+import { CustomApiService } from 'src/app/core/servicios/custom-api.service';
 
 @Component({
   selector: 'app-copago-coupon',
@@ -34,7 +36,9 @@ export class CopagoCouponComponent implements OnInit {
 
   constructor(
     public numberPipe: NumberFormatPipe,
-    private modalService: ModalService
+    private modalService: ModalService,
+    private cuponService: GenerarCuponService,
+    private customApi: CustomApiService
   ) { }
 
   ngOnInit(): void {
@@ -92,8 +96,30 @@ export class CopagoCouponComponent implements OnInit {
   }
 
   verCupon(carga: any){
-    this.sendData.emit(carga)
-    console.log('show cupon')
+    var cuponData: any = {
+      cargaData: carga,
+      comercioData: null,
+      cuponData: null
+    };
+
+    //Solicito datos del cupon y los guardo
+    this.cuponService.getCupon(carga.codigoCupon).subscribe((response) => {
+      cuponData.cuponData = response
+      //Solicito datos del convenio y los guardo
+      this.customApi.getConvenio(carga.idConvenio).subscribe((response) => {
+        cuponData.comercioData = response
+
+        //Llamo a generar-cupon con los datos para poder rellenar la vista
+        this.sendData.emit(cuponData)
+      },
+      (error) => {
+        console.log(error)
+      })
+    },
+    (error) => {
+      console.log(error)
+    })
+
   }
 
 

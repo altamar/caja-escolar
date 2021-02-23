@@ -12,14 +12,6 @@ export class GenerarCouponComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    this.changeValues(this.dataCupon)
-    console.log("desde component",this.dataCupon)
-
   }
 
-  changeValues(data: any){
-    this.dataCupon = {
-      codigoCupon: "150516"
-    }
-  }
 }

@@ -1,6 +1,6 @@
 import { HttpBackend, HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { OptionsModal, TypeModal } from 'src/app/models/modal.options';
 import { ModalService } from './modal.service';
 import { GetBeneficiosService  } from './get-beneficios.service';
@@ -107,6 +107,19 @@ export class CustomApiService {
     return (comercio.beneficios || []).filter(
       (e) => e.beneficioespecial == tipo
     );
+  }
+
+
+  getConvenio(data: any): Observable<any>{
+    const token = this.apInMemoryProvider.getItemByKey(InMemoryKeys.AccesToken)
+    const headerss = new HttpHeaders()
+        .set('Authorization',`Bearer ${token}`)
+        .set('Content-Type', 'application/json');
+    return this.httpWithoutInterceptor.get<any>(ENV.API_URL_CUSTOM + `/convenio/${data}`,
+      {
+        headers: headerss
+      }
+    )
   }
 
 
