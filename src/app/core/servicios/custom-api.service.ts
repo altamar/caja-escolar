@@ -17,6 +17,7 @@ export class CustomApiService {
   private httpWithoutInterceptor : HttpClient;
   private sebjectDatosUsuarioCustom = new Subject<any>();
   private OptionsMLoad = new OptionsModal(TypeModal.load , false);
+  private OptionsELoad = new OptionsModal(TypeModal.error , false);
   public datosUsuarioCustom$ = this.sebjectDatosUsuarioCustom.asObservable();
 
 
@@ -33,7 +34,10 @@ export class CustomApiService {
 
 
   loadData(crut: string){
-    this.getToken().subscribe((response) => this.consultarRut(crut, response.token))
+    this.getToken().subscribe((response) => this.consultarRut(crut, response.token), (error) => {
+      this._modalService.open('errormodal', this.OptionsELoad);
+      console.log(error)
+    })
   }
 
   getToken(){
@@ -79,12 +83,23 @@ export class CustomApiService {
             .subscribe((response) => {
               this.sebjectDatosConvenioCustom.next(response);
               this._modalService.close('loadmodal');
+            },
+            (error) => {
+              this._modalService.close('loadmodal');
+              this._modalService.open('errormodal', this.OptionsELoad);
+              console.log(error)
             });
       },
       (error) => {
         this._modalService.close('loadmodal');
+        this._modalService.open('errormodal', this.OptionsELoad);
         console.log(error)
       });
+    },
+    (error) => {
+      this._modalService.close('loadmodal');
+      this._modalService.open('errormodal', this.OptionsELoad);
+      console.log(error)
     })
   }
 
@@ -93,12 +108,10 @@ export class CustomApiService {
       res?.result.forEach((comercio) => {
         comercio.beneficiosCopago = this.filtroEspecial(comercio, '1');
         comercio.beneficiosDescuento = this.filtroEspecial(comercio, '2');
-        // if (comercio.beneficios.length > 0) {
-        //   data.push(comercio);
-        // }
       });
     },
     (error) => {
+      this._modalService.open('errormodal', this.OptionsELoad);
       console.log(error)
     })
   }
@@ -122,39 +135,5 @@ export class CustomApiService {
     )
   }
 
-
-  // getTokenOld(crut: string){
-
-  //   const body = {
-  //     'username': 'caja',
-  //     'password': 'password',
-  //     'apikey': 'BskA66wmLkJB1yF2MiMl'
-  //   }
-
-  //   this.httpWithoutInterceptor.post<any>(this.URL_API+ `/token`, body).subscribe((response) => {
-  //     console.log(response)
-  //     const headerss = new HttpHeaders()
-  //       .set('authorization',`Bearer ${response.token}`)
-
-  //       //Get datos usuario (cargas)
-  //     this.httpWithoutInterceptor.get<any>(this.URL_API+`/beneficiario/${crut}`,
-  //         {
-  //           headers: headerss
-  //         }
-  //       ).subscribe((response) => {
-  //         this.sebjectDatosUsuarioCustom.next(response)
-  //       })
-
-  //       //Get datos convenio (beneficios)
-  //     this.httpWithoutInterceptor.get<any>(this.URL_API+`/convenio`,
-  //       {
-  //         headers: headerss
-  //       }
-  //     ).subscribe((response) => {
-  //       this.sebjectDatosConvenioCustom.next(response)
-  //     })
-
-  //   })
-  // }
 
 }

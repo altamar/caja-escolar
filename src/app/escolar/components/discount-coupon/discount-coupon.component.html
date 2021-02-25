@@ -50,22 +50,6 @@
                                                     </p>
                                                 </div>
                                             </div>
-                                            <div class="datos">
-                                                <div class="left">
-                                                    <p class="f-geomanist-r c-color-gris">Estado:</p>
-                                                </div>
-                                                <div class="right">
-                                                    <p class="f-geomanist-book c-color-blue">Disponible</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="datos hide-estado-dcto">
-                                            <div class="left">
-                                                <p class="f-geomanist-book c-color-gris">Estado:</p>
-                                            </div>
-                                            <div class="right">
-                                                <p class="f-geomanist-r c-color-gris">Disponible</p>
-                                            </div>
                                         </div>
                                     </div>
                                     <!-- Seleccionar comercio -->
@@ -92,7 +76,7 @@
                                         <button class="btn-blue ca-btn-regular ver-descuento" (click)="showDetails(bene)">Ver descuento</button>
                                     </div>
                                     <div class="botones text-center box-generar-cupon">
-                                        <a id="btnAceptar2" class="btn-blue ca-btn-regular tooltip-hover-disabled" data-tooltip="Debes aceptar las condiciones para generar el cupón.">Generar cupón</a>
+                                        <a id="btnAceptar2" (click)="showModalGenerar(bene, conv)" class="btn-blue ca-btn-regular tooltip-hover-disabled" data-tooltip="Debes aceptar las condiciones para generar el cupón.">Generar cupón</a>
                                     </div>
                                 </div>
                             </div>

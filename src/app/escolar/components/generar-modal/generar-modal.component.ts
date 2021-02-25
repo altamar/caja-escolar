@@ -5,6 +5,7 @@ import { Comercio } from 'src/app/models/comercio';
 import { ImodalData } from 'src/app/models/ImodalData';
 import { OptionsModal, TypeModal } from 'src/app/models/modal.options';
 import { GenerarCuponService } from 'src/app/core/servicios/generar-cupon.service';
+import { CustomApiService } from 'src/app/core/servicios/custom-api.service';
 
 @Component({
   selector: 'app-generar-modal',
@@ -14,6 +15,7 @@ import { GenerarCuponService } from 'src/app/core/servicios/generar-cupon.servic
 export class GenerarModalComponent implements OnInit {
 
   private OptionsMLoad = new OptionsModal(TypeModal.load , false);
+  private OptionsELoad = new OptionsModal(TypeModal.error , false);
   @Input() id: string;
   @Output()sendData = new EventEmitter<any>();
   private element: any;
@@ -26,6 +28,7 @@ export class GenerarModalComponent implements OnInit {
     constructor(
       private modalService: ModalService,
       private cuponService: GenerarCuponService,
+      private customApi: CustomApiService,
       private el: ElementRef) {
       this.element = el.nativeElement;
     }
@@ -76,7 +79,6 @@ export class GenerarModalComponent implements OnInit {
 
     matchMonto(montoCarga){
 
-
       var montoCarga = montoCarga;
       var beneficioValido;
       var elemt;
@@ -91,7 +93,6 @@ export class GenerarModalComponent implements OnInit {
       });
 
       if(beneficioValido){
-        //console.log('Existe descuento');
         const comercio = this.data
         const beneficio = elemt
         const carga = this.data2
@@ -102,20 +103,36 @@ export class GenerarModalComponent implements OnInit {
           cargaData: carga,
         }
 
-        //console.log('idConvenio', idconvenio, 'idBeneficio', idbeneficio, 'cargaRut', cargaRut)
-        //console.log(this.data2)
-
-        this.cuponService.generar(datacupon)
-        //this.sendData.emit(this.data)
-        this.sendData.emit(datacupon)
-        this.close()
+        try {
+          this.generarCupon(datacupon)
+        } catch (error) {
+          this.modalService.open('errormodal', this.OptionsELoad)
+          console.log(error)
+        }
       }else{
-        console.log('No existe descuento')
+        this.modalService.open('errormodal', this.OptionsELoad)
       }
     }
 
   generarCupon(data: any){
-    this.cuponService.generar(data)
+    var cuponData: any = {
+      cargaData: data.cargaData,
+      comercioData: data.comercioData,
+      cuponData: null
+    };
+    this.close()
+    this.cuponService.generarCopago(data)
+      .subscribe((response) => {
+        cuponData.cuponData = response
+        this.modalService.close('loadmodal');
+        this.sendData.emit(cuponData)
+
+      },
+      (error) => {
+        this.modalService.open('errormodal', this.OptionsELoad)
+        console.log(error)
+      })
+
   }
 
 }

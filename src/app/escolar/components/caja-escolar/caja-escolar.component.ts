@@ -4,12 +4,20 @@ import { Component, OnInit } from '@angular/core';
 import { DatosUsuarioService } from 'src/app/core/servicios/datos-usuario.service';
 import { GetBeneficiosService } from '../../../core/servicios/get-beneficios.service';
 import { CustomApiService } from 'src/app/core/servicios/custom-api.service';
+import { ModalService } from 'src/app/core/servicios/modal.service';
+import { ApInMemoryProvider } from 'src/app/core/storage/ap-in-memory/ap-in-memory';
+import { InMemoryKeys } from 'src/app/core/storage/in-memory-key';
+import { OptionsModal, TypeModal } from 'src/app/models/modal.options';
+
 @Component({
   selector: 'app-caja-escolar',
   templateUrl: './caja-escolar.component.html',
   styleUrls: ['./caja-escolar.component.css'],
 })
 export class CajaEscolarComponent implements OnInit {
+
+  private OptionsELoad = new OptionsModal(TypeModal.error , false);
+
 
   id: string;
 
@@ -686,13 +694,18 @@ export class CajaEscolarComponent implements OnInit {
   showCupon: boolean;
   showCargas: boolean = true;
 
+  showCuponDescuento: boolean;
+  showDescuento: boolean = true;
+
   dataCupon: any;
 
 
   constructor(
     private datosUsuario: DatosUsuarioService,
     private getBeneficiosService: GetBeneficiosService,
-    private customApi: CustomApiService
+    private customApi: CustomApiService,
+    private modalService:ModalService,
+    private apInMemoryProvider: ApInMemoryProvider
   ) {}
 
   ngOnInit(): void {
@@ -709,19 +722,62 @@ export class CajaEscolarComponent implements OnInit {
 
     // this.getBeneficiosService.getEspecials()
 
-    this.customApi.datosUsuarioCustom$.subscribe((data) => {
-      this.getBeneficiarios = data;
-    })
-    this.customApi.datosConvenioCustom$.subscribe((data) => {
-      this.getConvenio = data;
-    })
+    // this.customApi.datosUsuarioCustom$.subscribe((data) => {
+    //   this.getBeneficiarios = data;
+    // })
+    // this.customApi.datosConvenioCustom$.subscribe((data) => {
+    //   this.getConvenio = data;
+    // })
 
-    this.customApi.getEspecials()
+    // this.customApi.getEspecials()
+    this.loadData()
 
   }
 
-  onShow(data: any){
+  loadData(){
+    try {
+      this.customApi.datosUsuarioCustom$.subscribe((data) => {
+        this.getBeneficiarios = data;
+      })
+      this.customApi.datosConvenioCustom$.subscribe((data) => {
+        this.getConvenio = data;
+      })
+
+      this.customApi.getEspecials()
+    } catch (error) {
+      this.modalService.open('errormodal', this.OptionsELoad)
+    }
+
+  }
+
+  onShowCopago(data: any){
     this.dataCupon = data;
+    this.showCargas = false;
+    this.showCupon = true;
+  }
+
+  volverCopago(){
+    this.showCargas = true;
+    this.showCupon = false;
+    this.customApi.consultarRut(this.apInMemoryProvider.getItemByKey(InMemoryKeys.RUT_Encriptado), this.apInMemoryProvider.getItemByKey(InMemoryKeys.AccesToken))
+    this.loadData()
+  }
+
+  volverDescuento(){
+    this.showCuponDescuento = false;
+    this.showDescuento = true;
+    this.customApi.consultarRut(this.apInMemoryProvider.getItemByKey(InMemoryKeys.RUT_Encriptado), this.apInMemoryProvider.getItemByKey(InMemoryKeys.AccesToken))
+    this.loadData()
+  }
+
+  onShowDescuento(data: any){
+    this.dataCupon = data;
+    this.showDescuento = false;
+    this.showCuponDescuento = true;
+  }
+
+  closeModal(data: any){
+    this.modalService.close(data);
   }
 
 }

@@ -27,11 +27,11 @@ export class GenerarCuponService {
 
 
 
-  generar(data: any){
+  generarCopago(data: any){
     const {cargaData, beneficioData, comercioData} = data
     const token = this.apInMemoryProvider.getItemByKey(InMemoryKeys.AccesToken)
     const rutAfiliado = this.apInMemoryProvider.getItemByKey(InMemoryKeys.RUT) + this.apInMemoryProvider.getItemByKey(InMemoryKeys.DigitoVerificacion)
-    //console.log(rutAfiliado)
+
     this.modalService.open('loadmodal' , this.OptionsMLoad);
     const headerss = new HttpHeaders()
         .set('Authorization',`Bearer ${token}`)
@@ -48,17 +48,42 @@ export class GenerarCuponService {
       idconvenio: comercioData.idconvenio,
     }
 
-    this.httpWithoutInterceptor.post<any>(ENV.API_URL_CUSTOM+`/cupon/generate`,
+    return this.httpWithoutInterceptor.post<any>(ENV.API_URL_CUSTOM+`/cupon/generate/copago`,
       dataBody,
       {
         headers: headerss
       }
-    ).subscribe((response) => {
-      this.modalService.close('loadmodal');
-    },
-    (error) => {
-      console.log(error)
-    })
+    )
+
+  }
+
+  generarDescuento(data: any){
+    const {beneficioData, comercioData} = data
+    const token = this.apInMemoryProvider.getItemByKey(InMemoryKeys.AccesToken)
+    const rutAfiliado = this.apInMemoryProvider.getItemByKey(InMemoryKeys.RUT) + this.apInMemoryProvider.getItemByKey(InMemoryKeys.DigitoVerificacion)
+
+    this.modalService.open('loadmodal' , this.OptionsMLoad);
+    const headerss = new HttpHeaders()
+        .set('Authorization',`Bearer ${token}`)
+        .set('Content-Type', 'application/json');
+
+    const dataBody = {
+      rutAfiliado: rutAfiliado,
+      codigoCampana: 2,
+      montoCopago: 0,
+      rutCarga: rutAfiliado,
+      tipo: 2,
+      nombreComercio: comercioData.marca,
+      idbeneficio: beneficioData.idbeneficio,
+      idconvenio: comercioData.idconvenio,
+    }
+
+    return this.httpWithoutInterceptor.post<any>(ENV.API_URL_CUSTOM+`/cupon/generate/descuento`,
+      dataBody,
+      {
+        headers: headerss
+      }
+    )
 
   }
 
@@ -67,16 +92,16 @@ export class GenerarCuponService {
     return this.httpWithoutInterceptor.get<any>(ENV.API_URL_CUSTOM+`/cupon/${data}`)
   }
 
-  getOne(data: any){
-    this.modalService.open('loadmodal' , this.OptionsMLoad);
-    this.httpWithoutInterceptor.get<any>(ENV.API_URL_CUSTOM+`/cupon/${data}`
-    ).subscribe((data) => {
-      this.sebjectCupon.next(data)
-      this.modalService.close('loadmodal');
-    },
-    (error) => {
-      console.log(error)
-    })
-  }
+  // getOne(data: any){
+  //   this.modalService.open('loadmodal' , this.OptionsMLoad);
+  //   this.httpWithoutInterceptor.get<any>(ENV.API_URL_CUSTOM+`/cupon/${data}`
+  //   ).subscribe((data) => {
+  //     this.sebjectCupon.next(data)
+  //     this.modalService.close('loadmodal');
+  //   },
+  //   (error) => {
+  //     console.log(error)
+  //   })
+  // }
 
 }

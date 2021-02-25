@@ -3,7 +3,7 @@ import {Enviroment} from './environment.model';
 export const ENV: Enviroment = {
   API_URL_TOKEN: 'https://api-dev.cajalosandes.cl/oauth2/pwd/token',
   API_URL : 'https://api-dev.cajalosandes.cl/beneficiosocial/campana_convenios/v1',
-  API_URL_CUSTOM : 'http://localhost:4000/api',
+  API_URL_CUSTOM : 'https://api-caja-nodejs.herokuapp.com/api',
   grant_type: 'password',
   x_api_key: 'mqOy9QTlAniEiAgoTKnnsuVEFIH1TdSh',
   authorization: 'bXFPeTlRVGxBbmlFaUFnb1RLbm5zdVZFRklIMVRkU2g6TE51SEF0M003YXlDbGhPUg==',

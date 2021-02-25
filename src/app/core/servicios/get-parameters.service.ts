@@ -20,7 +20,7 @@ export class GetParametersService implements CanActivate {
   constructor(private activatedRoute: ActivatedRoute,
                 private apInMemoryProvider: ApInMemoryProvider,
                 private datosUsuarioService: DatosUsuarioService,
-                private getToken: CustomApiService
+                private customApi: CustomApiService
               ) {
   }
 
@@ -30,7 +30,7 @@ export class GetParametersService implements CanActivate {
         if (params.crut) {
           console.log('Poner los servicios')
           this.apInMemoryProvider.setItemByKey(InMemoryKeys.RUT_Encriptado, params.crut.replace(/\s/g, '+') )
-          this.getToken.loadData(params.crut.replace(/\s/g, '+'))
+          this.customApi.loadData(params.crut.replace(/\s/g, '+'))
           // this.apInMemoryProvider.setItemByKey(InMemoryKeys.RUT_Encriptado, params.crut.replace(/\s/g, '+') );
           // this.datosUsuarioService.loadData(params.crut.replace(/\s/g, '+'));
         }

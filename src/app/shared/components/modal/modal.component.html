@@ -1,31 +1,33 @@
-
-
-
-
-<div   class="modal fade" [ngClass]="{'show': visibleAnimate}"  [ngStyle]="{'display': visibleAnimate ? 'block' : 'none', 'opacity': visibleAnimate ? 1 : 0}">
-    <div class="box modal-dialog" >
+<div class="modal fade" [ngClass]="{'show': visibleAnimate}" [ngStyle]="{'display': visibleAnimate ? 'block' : 'none', 'opacity': visibleAnimate ? 1 : 0}">
+    <div class="box modal-dialog">
         <div class="modal-content content-modal-info ccla">
             <div class="col-md-12" *ngIf="options.type == 'load'" style="text-align: center;">
-            <img   [src]="src" class="mt-4" width="110" >
+                <img [src]="src" class="mt-4" width="110">
             </div>
             <div class="info-guardar-cc" *ngIf="options.type != 'load'">
                 <div class="icono">
-                  <img   [src]="src" class="mt-4" width="110">
+                    <img [src]="src" class="mt-4" width="110">
                 </div>
                 <div>
-                <!-- <p class="text-center"> Si sales de esta página perderás todos los datos del proceso</p> -->
-                    <ng-content  select="[message]" > </ng-content>
+                    <!-- <p class="text-center"> Si sales de esta página perderás todos los datos del proceso</p> -->
+                    <ng-content select="[message]"> </ng-content>
 
                     <form action="" method="">
                         <div class="form-group mb-0 text-right btn-modal-dobles">
-                            <button type="button"  *ngIf="options.ShowCancel" class="ca-btn-regular btn-white btn-cancelar-modal"  (click)="close()">Cancelar</button>
+                            <button type="button" *ngIf="options.ShowCancel" class="ca-btn-regular btn-white btn-cancelar-modal" (click)="close()">Cancelar</button>
                             <ng-content select="[buttom]"></ng-content>
-                         </div>
+                        </div>
                     </form>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<div   [ngClass]="{' modal-backdrop fade show': visibleAnimate}"></div>
+<div [ngClass]="{' modal-backdrop fade show': visibleAnimate}"></div>
 
+<!-- <app-modal id="modalError">
+    <div message>
+        <p class="mt-5 f-geomanist-book">Lo sentimos, en estos momentos no podemos atender tu solicitud. Inténtalo más tarde.</p>
+    </div>
+    <button type="button" class="ca-btn-regular btn-blue" buttom (click)="closeModal('modalError')">Aceptar</button>
+</app-modal> -->

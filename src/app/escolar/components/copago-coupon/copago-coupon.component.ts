@@ -8,6 +8,7 @@ import { Beneficio } from 'src/app/models/beneficio';
 import { ModalService } from 'src/app/core/servicios/modal.service';
 import { GenerarCuponService } from 'src/app/core/servicios/generar-cupon.service';
 import { CustomApiService } from 'src/app/core/servicios/custom-api.service';
+import { OptionsModal, TypeModal } from 'src/app/models/modal.options';
 
 @Component({
   selector: 'app-copago-coupon',
@@ -15,6 +16,7 @@ import { CustomApiService } from 'src/app/core/servicios/custom-api.service';
   styleUrls: ['./copago-coupon.component.css']
 })
 export class CopagoCouponComponent implements OnInit {
+  private OptionsELoad = new OptionsModal(TypeModal.error , false);
 
 
   @Input()beneficiario:any;
@@ -109,14 +111,16 @@ export class CopagoCouponComponent implements OnInit {
       this.customApi.getConvenio(carga.idConvenio).subscribe((response) => {
         cuponData.comercioData = response
 
-        //Llamo a generar-cupon con los datos para poder rellenar la vista
+        //Llamo a la vista donde se muestra el cupon
         this.sendData.emit(cuponData)
       },
       (error) => {
+        this.modalService.open('errormodal', this.OptionsELoad)
         console.log(error)
       })
     },
     (error) => {
+      this.modalService.open('errormodal', this.OptionsELoad)
       console.log(error)
     })
 
